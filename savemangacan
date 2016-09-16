@@ -1,0 +1,85 @@
+#!/usr/bin/python
+
+from bs4 import BeautifulSoup
+import os
+
+# style
+
+def samadengan():
+	print "=" * 80
+
+def garis():
+	print "-" * 80
+
+def selesai():
+	garis()
+	print "Dibuat oleh Muhammad Zaini (muhammadzaini.com)"
+	samadengan()
+
+samadengan()
+
+# download komik
+
+link = raw_input("Sebutkan file html yang kamu save dari mangacan: ")
+
+garis()
+
+data = open(link).read()
+sup = BeautifulSoup(data, "lxml").select("#imgholder img")
+for gambar in range(0, len(sup)):
+	os.system("wget %r" %(sup[gambar]["src"]))
+
+# tampilkan komik
+
+lokasi = os.getcwd().split("/")
+n = len(lokasi)
+lokasifolder = lokasi[n-1]
+
+file = open("baca.html", "w")
+
+tulis = """<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title>"""+lokasifolder+""" - Baca Komik - Dibuat oleh Muhammad Zaini .com</title>
+    <style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	img {
+		width: 80%;
+		display: block;
+		margin: auto;
+	}
+	</style>
+</head>
+
+<body>
+"""
+
+file.write(tulis)
+
+tampilkanfile = os.listdir(".")
+tampilkanfile.remove("baca.html")
+tampilkanfile.remove(link)
+tampilkanfile.sort()
+
+for gambar in range(0, len(tampilkanfile)):
+	file.write("\t<img src='%s' alt=''/>\n" % (tampilkanfile[gambar]))
+
+file.write("""</body>
+
+</html>""")
+
+# save
+
+file.close()
+
+garis()
+
+print "Silahkan buka 'baca.html'"
+
+selesai()
