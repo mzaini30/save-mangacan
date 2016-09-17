@@ -2,6 +2,13 @@
 
 from bs4 import BeautifulSoup
 import os
+import random
+
+# deklarasi
+
+lokasi_script = "/home/mzaini30/Dokumen/git/save-mangacan"
+
+acak = str(random.random())
 
 # style
 
@@ -58,6 +65,11 @@ tulis = """<!DOCTYPE html>
 		margin: auto;
 	}
 	</style>
+    <script src="bin/jquery.min.js"></script>
+    <script src="bin/save-page-position.js"></script>
+    <script>
+        savepageposition("komik """+acak+"""")
+    </script>
 </head>
 
 <body>
@@ -80,6 +92,10 @@ file.write("""</body>
 # save
 
 file.close()
+
+# copy folder
+
+os.system("cp -a "+lokasi_script+"/bin/* .")
 
 garis()
 
