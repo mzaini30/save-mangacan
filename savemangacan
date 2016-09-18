@@ -67,6 +67,7 @@ tulis = """<!DOCTYPE html>
 	</style>
     <script src="bin/jquery.min.js"></script>
     <script src="bin/save-page-position.js"></script>
+    <script src="bin/jquery.fullscreen.min.js"></script>
     <script>
         savepageposition("komik """+acak+"""")
     </script>
@@ -85,7 +86,12 @@ tampilkanfile.sort()
 for gambar in range(0, len(tampilkanfile)):
 	file.write("\t<img src='%s' alt=''/>\n" % (tampilkanfile[gambar]))
 
-file.write("""</body>
+file.write("""	<script>
+	$("body").click(function(){
+		$(document).fullScreen(true)
+	})
+	</script>
+</body>
 
 </html>""")
 
