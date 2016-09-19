@@ -31,7 +31,13 @@ link = raw_input("Sebutkan file html yang kamu save dari mangacan: ")
 
 garis()
 
-data = open(link).read()
+linkSplit = link.split('.')
+
+if linkSplit[len(linkSplit) - 1] == 'html':
+    data = open(link).read()
+else:
+    data = open(link + ".html").read()
+
 sup = BeautifulSoup(data, "lxml").select("#imgholder img")
 for gambar in range(0, len(sup)):
 	os.system("wget %r" %(sup[gambar]["src"]))
